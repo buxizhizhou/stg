@@ -1,0 +1,1 @@
+java -jar -Xmx450M indoorSTG.jar
