@@ -43,6 +43,9 @@ public class GraphHandle {
     static JFileChooser jfc = new JFileChooser();
     static Stroke bstroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
     static Stroke selectStroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1, new float[]{5, 2}, 1);
+    
+    //xdz增加的全局变量
+    //static int YLEN=565;//显示板竖直高度
 
     public GraphHandle(final IndoorShowFrame indoor, String[] context) {
 
@@ -410,6 +413,27 @@ public class GraphHandle {
                             cir.add(g);
                         } else {
                             notcir.add(g);
+                            //xdz改写
+                            /*System.out.println("x1:"+g.getX1()*50);
+                            System.out.println("y1:"+50*g.getY1());
+                            System.out.println("w:"+50*g.getWide());
+                            System.out.println("h:"+50*g.getHeight());
+                            System.out.println("H;"+envirSet.getDrawPanel().getHeight());
+                            if(g.getStyle()==0)
+                            {
+                              //Graph g2=new Graph(g.getFloor(),0,g.isIsContext(),g.getFillColor(),g.getBordercolor(),g.getX1(),envirSet.getDrawPanel().getHeight()-g.getY1(),g.getWide(),-1*g.getHeight(),"");
+                              Graph g2=new Graph(g.getFloor(),0,g.isIsContext(),g.getFillColor(),g.getBordercolor(),g.getX1(),envirSet.getDrawPanel().getHeight()-(g.getY1()+g.getHeight()),g.getWide(),g.getHeight(),"");
+                              notcir.add(g2);
+                              //g.setY1(envirSet.getDrawPanel().getHeight()-(g.getY1()+g.getHeight()));
+                            }
+                            else if(g.getStyle()==4)
+                            {
+                              Graph g2=new Graph(g.getFloor(),4,g.isIsContext(),g.getFillColor(),g.getBordercolor(),g.getX1(),envirSet.getDrawPanel().getHeight()-g.getY1(),g.getWide(),envirSet.getDrawPanel().getHeight()-g.getHeight(),"");
+                              notcir.add(g2);
+                              //.setY1(envirSet.getDrawPanel().getHeight()-g.getY1());
+                              //g.setHeight(envirSet.getDrawPanel().getHeight()-g.getHeight());
+                            } */
+                            //notcir.add(g);
                         }
                     }
                     String context[] = new String[floornum];
@@ -526,6 +550,7 @@ public class GraphHandle {
     }
 
     static void trimGraphs() {
+    //Function：在显示板上让矩形和线根据正在画的对象而自动调整
         int rectNum = 1, squNum = 1, cirTotalNum = 1, cirFloNum = 0, roundrectNum = 1;
         int floNum = 0;
         if (graphs.isEmpty()) {
@@ -550,7 +575,7 @@ public class GraphHandle {
                             Line2D line2 = new Line2D.Float(r.x, r.y, r.x + r.width, r.y);
                             Line2D line3 = new Line2D.Float(r.x + r.width, r.y, r.x + r.width, r.y + r.height);
                             Line2D line4 = new Line2D.Float(r.x, r.y + r.height, r.x + r.width, r.y + r.height);
-
+                            /*
                             if (line1.intersects(cirsh.getBounds())) {
                                 //线段与矩形左竖线相交
                                 if (!g.isCurrent()) {
@@ -579,7 +604,7 @@ public class GraphHandle {
                                 } else {
                                     g.setX1(r.x + r.width - g.getWide() / 2);
                                 }
-                            }
+                            }*/
                             g.setCurrent(true);
                         }
                     }
@@ -590,12 +615,12 @@ public class GraphHandle {
             if (g.getFloor() == envirSet.floor && g.getStyle() == 4) {
                 int difX = Math.abs(g.getX1() - g.getWide());
                 int difY = Math.abs(g.getY1() - g.getHeight());
-                if (difX < 10) {
+                /*if (difX < 10) {
                     g.setWide(g.getX1());
                 }
                 if (difY < 10) {
                     g.setHeight(g.getY1());
-                }
+                }*/
             }
 
             if (g.getFloor() == envirSet.floor) {
@@ -650,7 +675,7 @@ public class GraphHandle {
             }
 
             //不同y值之间的图像处理
-            xyAlign(minGraph);
+       //     xyAlign(minGraph);
 
             floNum -= size;
             int secX = 0;
@@ -684,7 +709,7 @@ public class GraphHandle {
                         continue;
                     }
                     int trimdif = Math.abs(secX - gr.getX1());
-                    if (trimdif < 5) {
+                    /*if (trimdif < 5) {
                         gr.setX1(secX);
                         if (minGraph.getStyle() == 0 || minGraph.getStyle() == 1 || minGraph.getStyle() == 3) {
                             gr.setY1(minGraph.getY1());
@@ -699,7 +724,7 @@ public class GraphHandle {
 
                         minGraph = gr;
                         break;
-                    }
+                    }*/
                 }
                 size--;
             }
