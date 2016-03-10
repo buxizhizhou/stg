@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.JFileChooser;
+import javax.swing.JTextField;
 
 /**
  *
@@ -79,7 +80,7 @@ public class GraphHandle {
 
     static void hPressed(Point p) {
         checkSelect(p);
-        if (envirSet.method == 0) {
+        if (envirSet.method == 0) {//0、1、2依次对应Design、Erase、Move
             mx = p.x;
             my = p.y;
         } else if (envirSet.method == 2) {
@@ -101,6 +102,7 @@ public class GraphHandle {
     static void hShape() {
         int cx, cy, cw, ch, min;
         int type = envirSet.element;
+        String sem = envirSet.elem_sem;//是否在画语义
         int floor = envirSet.floor;
         boolean iscontext = envirSet.iscontext;
         isfill = envirSet.isfill;
@@ -123,8 +125,10 @@ public class GraphHandle {
         } else {
             borderc = envirSet.bordercolor;
         }
-
-        switch (type) {
+        
+        if(sem.equals("Semantics"))//画室内布局
+        {
+            switch (type) {
             case 0:
                 graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, cw, ch, "");
                 break;
@@ -144,10 +148,16 @@ public class GraphHandle {
                 graph = new Graph(floor, type, iscontext, fillc, borderc, mx, my, tx, ty, "");
                 break;
             default:
+            }
+        }
+        else//绘制语义信息
+        {
+            graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, cw, ch, "");
+            graph.setSemantics(sem);
         }
         envirSet.repaint();
     }
-
+   
     static void hDragged(Point p) {
         if (envirSet.method == 2) {
             if (selected != null) {
@@ -241,7 +251,7 @@ public class GraphHandle {
         }
     }
 
-    static void drawAll(Graphics2D g) {
+    static void drawAll(Graphics2D g) {//绘制，在EnvirSet的paint方法中调用
         Shape shape = null;
         if (graph != null) {
             graph.setCurrent(true);
@@ -273,6 +283,8 @@ public class GraphHandle {
                     if (graphic.getStyle() != 0 || (graphic.getStyle() == 0 && graphic.isIsContext())) {
                         g.drawString(graphic.getContext(), graphic.getX1() + graphic.getWide() / 2 - graphic.getContext().length() * g.getFont().getSize() / 4, graphic.getY1() + graphic.getHeight() / 2 + g.getFont().getSize() / 3);
                     }
+                    //绘制语义
+                    g.drawString(graphic.getSemantics(), graphic.getX1() + graphic.getWide() / 4 - graphic.getContext().length() * g.getFont().getSize() / 8, graphic.getY1() + graphic.getHeight() / 4 + g.getFont().getSize() / 6);
                 }
 
                 if (graphic.isCurrent()) {
@@ -316,7 +328,7 @@ public class GraphHandle {
                 notcir.remove(graph);
             }
         }
-        envirSet.graphs = graphs;
+        envirSet.graphs = graphs;//graphs搜集生成的所有的graph，然后envirSet设置为graphs，进而进行绘制——感谢我的reading and 注释吧~~~
         envirSet.cir = cir;
         envirSet.notcir = notcir;
     }
@@ -528,7 +540,8 @@ public class GraphHandle {
         }
     }
 
-    static void cPressed() {
+    static void cPressed() {//在面板上勾选context后，是否显示房间编号
+        //return ;
         if (selected != null) {
             fillc = envirSet.fillcolor;
             borderc = envirSet.bordercolor;
@@ -548,7 +561,7 @@ public class GraphHandle {
             envirSet.repaint();
         }
     }
-
+    
     static void trimGraphs() {
     //Function：在显示板上让矩形和线根据正在画的对象而自动调整
         int rectNum = 1, squNum = 1, cirTotalNum = 1, cirFloNum = 0, roundrectNum = 1;

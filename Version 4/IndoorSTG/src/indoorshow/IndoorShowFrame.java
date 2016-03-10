@@ -224,16 +224,18 @@ public class IndoorShowFrame extends JFrame implements MouseMotionListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
+        setPreferredSize(new java.awt.Dimension(1400, 800));
 
         indoorPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Indoor Environment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century", 0, 12), new java.awt.Color(0, 0, 255))); // NOI18N
         indoorPanel.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
         indoorPanel.setOpaque(false);
+        indoorPanel.setPreferredSize(new java.awt.Dimension(1083, 557));
 
         javax.swing.GroupLayout indoorPanelLayout = new javax.swing.GroupLayout(indoorPanel);
         indoorPanel.setLayout(indoorPanelLayout);
         indoorPanelLayout.setHorizontalGroup(
             indoorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 771, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         indoorPanelLayout.setVerticalGroup(
             indoorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -809,7 +811,7 @@ public class IndoorShowFrame extends JFrame implements MouseMotionListener {
         DataTablePanel.setLayout(DataTablePanelLayout);
         DataTablePanelLayout.setHorizontalGroup(
             DataTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(DataRecordScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+            .addComponent(DataRecordScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 1071, Short.MAX_VALUE)
         );
         DataTablePanelLayout.setVerticalGroup(
             DataTablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -824,9 +826,9 @@ public class IndoorShowFrame extends JFrame implements MouseMotionListener {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pramatersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(RootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DataTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(indoorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(RootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DataTablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(indoorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         RootPanelLayout.setVerticalGroup(
             RootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)

@@ -32,7 +32,7 @@ import oracle.sql.STRUCT;
  * @author hello
  */
 public class import_to_stg_fromDB {
-    static int MNUM=100;//缩放比例
+    static int MNUM=95;//100;//缩放比例
     static int YLEN=565;//显示板的竖直高度
 
     //格式：类型，坐标（0，房间左下角坐标，宽度，高度；4，线段起点坐标，线段重点坐标）

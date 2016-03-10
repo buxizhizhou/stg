@@ -6,7 +6,7 @@ package indoorshow;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImage;//BufferedImage 子类描述具有可访问图像数据缓冲区的 Image
 import java.io.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -23,7 +23,8 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
 
     int x1, y1, x2, y2;
     int method;
-    int element;
+    int element;//矩形房间、圆RFID、电梯等
+    String elem_sem="Semantics";
     int floor;
     Color fillcolor;
     Color bordercolor;
@@ -87,6 +88,9 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         MethodBox = new javax.swing.JComboBox();
         FloorBox = new javax.swing.JComboBox();
         ElementBox = new javax.swing.JComboBox();
+        ElementBox1 = new javax.swing.JComboBox();
+        ContextCheckBox1 = new javax.swing.JCheckBox();
+        ElementBox2 = new javax.swing.JComboBox();
         FillColorLabel = new javax.swing.JLabel();
         FillColorCheckBox = new javax.swing.JCheckBox();
         BorderColorCheckBox = new javax.swing.JCheckBox();
@@ -97,10 +101,11 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         OkButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1106, 800));
         setResizable(false);
 
         DrawPanel.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        DrawPanel.setPreferredSize(new java.awt.Dimension(750, 550));
+        DrawPanel.setPreferredSize(new java.awt.Dimension(900, 604));
 
         javax.swing.GroupLayout DrawPanelLayout = new javax.swing.GroupLayout(DrawPanel);
         DrawPanel.setLayout(DrawPanelLayout);
@@ -110,14 +115,15 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         );
         DrawPanelLayout.setVerticalGroup(
             DrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 604, Short.MAX_VALUE)
         );
 
         MenuPanel.setPreferredSize(new java.awt.Dimension(750, 40));
         MenuPanel.setLayout(new javax.swing.BoxLayout(MenuPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         MethodBox.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        MethodBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Design", "Erase", "Move" }));
+        MethodBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Design", "Erase", "Move", "Semantics" }));
+        MethodBox.setPreferredSize(new java.awt.Dimension(50, 21));
         MethodBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MethodBoxActionPerformed(evt);
@@ -127,6 +133,7 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
 
         FloorBox.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
         FloorBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Floor 1", "Floor 2", "Floor 3", "Floor 4", "Floor 5", "Floor 6" }));
+        FloorBox.setPreferredSize(new java.awt.Dimension(50, 21));
         FloorBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FloorBoxActionPerformed(evt);
@@ -135,13 +142,46 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         MenuPanel.add(FloorBox);
 
         ElementBox.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        ElementBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Room(Rectangle)", "Lift(Square)", "Sensor(Circle)", "Stair(RoundedRect)", "Boundary(Line)" }));
+        ElementBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Room(Rectangle)", "Lift(Square)", "Sensor(Circle)", "Stair(RoundedRect)", "Boundary(Line)", "Semantics(Text)" }));
+        ElementBox.setPreferredSize(new java.awt.Dimension(110, 21));
         ElementBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ElementBoxActionPerformed(evt);
             }
         });
         MenuPanel.add(ElementBox);
+
+        ElementBox1.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
+        ElementBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semantics", "Hotel", "shopping mall", "cinema", "KTV" }));
+        ElementBox1.setMinimumSize(new java.awt.Dimension(60, 19));
+        ElementBox1.setPreferredSize(new java.awt.Dimension(70, 21));
+        ElementBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SemanticsBoxActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(ElementBox1);
+
+        ContextCheckBox1.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
+        ContextCheckBox1.setSelected(true);
+        ContextCheckBox1.setText("Add Semantics");
+        ContextCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContextCheckBox1ActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(ContextCheckBox1);
+
+        ElementBox2.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
+        ElementBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel", "shopping mall", "cinema", "KTV" }));
+        ElementBox2.setMinimumSize(new java.awt.Dimension(50, 19));
+        ElementBox2.setPreferredSize(new java.awt.Dimension(60, 21));
+        ElementBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ElementBox2SemanticsBoxActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(ElementBox2);
 
         FillColorLabel.setBackground(new java.awt.Color(204, 204, 204));
         FillColorLabel.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
@@ -223,15 +263,15 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
-            .addComponent(MenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+            .addComponent(MenuPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1097, Short.MAX_VALUE)
+            .addComponent(DrawPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1097, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(MenuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(DrawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(DrawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -348,6 +388,19 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         iscontext = ContextCheckBox.isSelected();
         GraphHandle.cPressed();
     }//GEN-LAST:event_ContextCheckBoxActionPerformed
+
+    private void SemanticsBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SemanticsBoxActionPerformed
+        // TODO add your handling code here:
+        elem_sem = (String)ElementBox1.getSelectedItem();
+    }//GEN-LAST:event_SemanticsBoxActionPerformed
+
+    private void ContextCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContextCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContextCheckBox1ActionPerformed
+
+    private void ElementBox2SemanticsBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElementBox2SemanticsBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ElementBox2SemanticsBoxActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -363,8 +416,11 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
     private javax.swing.JCheckBox BorderColorCheckBox;
     private javax.swing.JButton ClearButton;
     private javax.swing.JCheckBox ContextCheckBox;
+    private javax.swing.JCheckBox ContextCheckBox1;
     private javax.swing.JPanel DrawPanel;
     private javax.swing.JComboBox ElementBox;
+    private javax.swing.JComboBox ElementBox1;
+    private javax.swing.JComboBox ElementBox2;
     private javax.swing.JCheckBox FillColorCheckBox;
     private javax.swing.JLabel FillColorLabel;
     private javax.swing.JComboBox FloorBox;
@@ -427,7 +483,7 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paint(Graphics g) {//repaint 重绘此组件。如果组件是轻量组件，则此方法会尽快调用此组件的 paint 方法。否则此方法会尽快调用此组件的 update 方法。
 
         Graphics2D g2d = bufimg.createGraphics();
         g2d.setColor(DrawPanel.getBackground());

@@ -21,6 +21,8 @@ public class Graph implements Serializable {
     private boolean current;
     private boolean isContext = false;
     private String context;
+    
+    private String semantics;//语义信息
 
     //构造函数用来初始化属性
     public Graph(int floor, int style, boolean iscontext, java.awt.Color fillcolor, java.awt.Color bordercolor, int x1, int y1, int wide, int height, String context) {
@@ -34,6 +36,8 @@ public class Graph implements Serializable {
         this.wide = wide;
         this.height = height;
         this.context = context;
+        
+        this.semantics="";
     }
 
     public boolean isIsContext() {
@@ -47,9 +51,19 @@ public class Graph implements Serializable {
     public String getContext() {
         return context;
     }
+    
+    public String getSemantics()
+    {
+        return semantics;
+    }
 
     public void setContext(String context) {
         this.context = context;
+    }
+    
+    public void setSemantics(String semantics)
+    {
+        this.semantics=semantics;
     }
 
     public boolean isCurrent() {
