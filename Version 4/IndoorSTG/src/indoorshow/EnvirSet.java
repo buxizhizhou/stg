@@ -24,7 +24,8 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
     int x1, y1, x2, y2;
     int method;
     int element;//矩形房间、圆RFID、电梯等
-    String elem_sem="Semantics";
+    int sem_type;//选择Room Semantics, Add Semantics, No Semantics
+    String elem_sem="";
     int floor;
     Color fillcolor;
     Color bordercolor;
@@ -88,9 +89,8 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         MethodBox = new javax.swing.JComboBox();
         FloorBox = new javax.swing.JComboBox();
         ElementBox = new javax.swing.JComboBox();
-        ElementBox1 = new javax.swing.JComboBox();
-        ContextCheckBox1 = new javax.swing.JCheckBox();
         ElementBox2 = new javax.swing.JComboBox();
+        ElementBox1 = new javax.swing.JComboBox();
         FillColorLabel = new javax.swing.JLabel();
         FillColorCheckBox = new javax.swing.JCheckBox();
         BorderColorCheckBox = new javax.swing.JCheckBox();
@@ -151,37 +151,27 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         });
         MenuPanel.add(ElementBox);
 
-        ElementBox1.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        ElementBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semantics", "Hotel", "shopping mall", "cinema", "KTV" }));
-        ElementBox1.setMinimumSize(new java.awt.Dimension(60, 19));
-        ElementBox1.setPreferredSize(new java.awt.Dimension(70, 21));
-        ElementBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SemanticsBoxActionPerformed(evt);
-            }
-        });
-        MenuPanel.add(ElementBox1);
-
-        ContextCheckBox1.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        ContextCheckBox1.setSelected(true);
-        ContextCheckBox1.setText("Add Semantics");
-        ContextCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ContextCheckBox1ActionPerformed(evt);
-            }
-        });
-        MenuPanel.add(ContextCheckBox1);
-
         ElementBox2.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
-        ElementBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel", "shopping mall", "cinema", "KTV" }));
+        ElementBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Room Semantics", "Add Semantics", "No Semantics" }));
         ElementBox2.setMinimumSize(new java.awt.Dimension(50, 19));
-        ElementBox2.setPreferredSize(new java.awt.Dimension(60, 21));
+        ElementBox2.setPreferredSize(new java.awt.Dimension(70, 21));
         ElementBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ElementBox2SemanticsBoxActionPerformed(evt);
             }
         });
         MenuPanel.add(ElementBox2);
+
+        ElementBox1.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
+        ElementBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Hotel", "shopping mall", "cinema", "KTV" }));
+        ElementBox1.setMinimumSize(new java.awt.Dimension(60, 19));
+        ElementBox1.setPreferredSize(new java.awt.Dimension(60, 21));
+        ElementBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SemanticsBoxActionPerformed(evt);
+            }
+        });
+        MenuPanel.add(ElementBox1);
 
         FillColorLabel.setBackground(new java.awt.Color(204, 204, 204));
         FillColorLabel.setFont(new java.awt.Font("Century", 0, 12)); // NOI18N
@@ -394,12 +384,9 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
         elem_sem = (String)ElementBox1.getSelectedItem();
     }//GEN-LAST:event_SemanticsBoxActionPerformed
 
-    private void ContextCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContextCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ContextCheckBox1ActionPerformed
-
     private void ElementBox2SemanticsBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElementBox2SemanticsBoxActionPerformed
         // TODO add your handling code here:
+        sem_type = ElementBox2.getSelectedIndex();
     }//GEN-LAST:event_ElementBox2SemanticsBoxActionPerformed
     /**
      * @param args the command line arguments
@@ -416,7 +403,6 @@ public class EnvirSet extends javax.swing.JFrame implements MouseListener, Mouse
     private javax.swing.JCheckBox BorderColorCheckBox;
     private javax.swing.JButton ClearButton;
     private javax.swing.JCheckBox ContextCheckBox;
-    private javax.swing.JCheckBox ContextCheckBox1;
     private javax.swing.JPanel DrawPanel;
     private javax.swing.JComboBox ElementBox;
     private javax.swing.JComboBox ElementBox1;

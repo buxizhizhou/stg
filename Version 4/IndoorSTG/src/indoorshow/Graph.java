@@ -47,7 +47,7 @@ public class Graph implements Serializable {
     public void setIsContext(boolean isContext) {
         this.isContext = isContext;
     }
-
+    
     public String getContext() {
         return context;
     }

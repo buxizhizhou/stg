@@ -102,7 +102,8 @@ public class GraphHandle {
     static void hShape() {
         int cx, cy, cw, ch, min;
         int type = envirSet.element;
-        String sem = envirSet.elem_sem;//是否在画语义
+        int semType = envirSet.sem_type;//选择Room Semantics, Add Semantics, No Semantics
+        String sem = envirSet.elem_sem;//语义的内容：Hotel，KTV，...
         int floor = envirSet.floor;
         boolean iscontext = envirSet.iscontext;
         isfill = envirSet.isfill;
@@ -125,7 +126,7 @@ public class GraphHandle {
         } else {
             borderc = envirSet.bordercolor;
         }
-        
+        /*
         if(sem.equals("Semantics"))//画室内布局
         {
             switch (type) {
@@ -154,7 +155,49 @@ public class GraphHandle {
         {
             graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, cw, ch, "");
             graph.setSemantics(sem);
-        }
+        }*/
+        switch (type) {
+            case 0://房间
+                if(semType==0)
+                {
+                    graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, cw, ch, "");
+                    graph.setSemantics(sem);
+                }
+                else if(semType==2)
+                {
+                    graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, cw, ch, "");
+                }
+                else if(semType==1)//Add Semantics
+                {
+                    //graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, 50, 20, "");
+                    //graph.setSemantics(sem);
+                    //检测要在哪个Room里增加语义
+                    for (Graph graphic : notcir)
+                    {
+                        if(cx>=graphic.getX1() && cx<=graphic.getX1()+graphic.getWide() &&
+                           cy>=graphic.getY1() && cy<=graphic.getY1()+graphic.getHeight())
+                            graphic.setSemantics(sem);
+                    }
+                }
+                
+                break;
+            case 1:
+                graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, min, min, "");
+                break;
+            case 2:
+                if (min > 35) {
+                    min = 35;
+                }
+                graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, min, min, "");
+                break;
+            case 3:
+                graph = new Graph(floor, type, iscontext, fillc, borderc, cx, cy, cw, ch, "");
+                break;
+            case 4:
+                graph = new Graph(floor, type, iscontext, fillc, borderc, mx, my, tx, ty, "");
+                break;
+            default:
+            }
         envirSet.repaint();
     }
    
